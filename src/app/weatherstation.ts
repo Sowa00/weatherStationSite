@@ -1,0 +1,34 @@
+export interface WeatherStation {
+  id: number;
+  idByDateTime: number;
+  date: string;
+  time: string;
+  temperatureOut: number;
+  hiTemperature: number;
+  lowTemperature: number;
+  outHumidity: number;
+  dewPt: number;
+  windSpeed: number;
+  windDirection: string;
+  windRun: number;
+  hiSpeed: number;
+  hiDirection: string;
+  windChill: number;
+  heatIndex: number;
+  thwIndex: number;
+  bar: number;
+  rain: number;
+  rainRate: number;
+  heatDd: number;
+  coolDd: number;
+  temperatureIn: number;
+  inHumidity: number;
+  inDew: number;
+  inHeat: number;
+  inEMC: number;
+  inAirDensity: number;
+  windSamp: number;
+  windTx: number;
+  ISSRecept: number;
+  arcInt: number;
+}
