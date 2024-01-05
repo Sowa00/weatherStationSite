@@ -6,7 +6,7 @@ export interface WeatherStation {
   temperatureOut: number;
   hiTemperature: number;
   lowTemperature: number;
-  outHumidity: number;
+  outHuminity: number;
   dewPt: number;
   windSpeed: number;
   windDirection: string;
