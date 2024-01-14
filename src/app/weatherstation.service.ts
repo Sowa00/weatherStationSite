@@ -2,7 +2,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { WeatherStation } from "./weatherstation"; // Upewnij się, że importujesz właściwy model danych
+import { WeatherStation } from "./weatherstation";
 import { environment } from "../environments/environment";
 
 @Injectable({

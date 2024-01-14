@@ -61,4 +61,7 @@ export class CurrentWeatherComponent implements OnInit {
   convertToCelsius(fahrenheit: number): number {
     return (fahrenheit - 32) * 5/9;
   }
+  convertToHPa(bar: number): number {
+    return bar *1000;
+  }
 }

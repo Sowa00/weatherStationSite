@@ -17,6 +17,10 @@ export class YourWeatherService {
     const fullUrl = `${this.apiUrl}/wd/day/${date}`;
     return this.http.get<WeatherStation[]>(fullUrl);
   }
+  getWeatherDataForMoth(): Observable<WeatherStation[]> {
+    const fullUrl = `${this.apiUrl}/wd/last-month`;
+    return this.http.get<WeatherStation[]>(fullUrl);
+  }
   getCurrentWeather(): Observable<WeatherStation | null> {
     // Tutaj użyj HTTP do pobrania najnowszych danych pogodowych z twojego API
     // Zwróć dane jako Observable
