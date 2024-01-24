@@ -1,15 +1,13 @@
-// src/app/services/your-weather.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { WeatherStation } from './weatherstation';  // Upewnij się, że to odnosi się do poprawnej ścieżki
+import { WeatherStation } from './weatherstation';
 
 @Injectable({
   providedIn: 'root',
 })
 export class YourWeatherService {
-  private apiUrl = 'http://localhost:8081';  // Zmień to na odpowiednią bazową ścieżkę dla twojego API
+  private apiUrl = 'http://localhost:8081';
 
   constructor(private http: HttpClient) {}
 
@@ -17,13 +15,13 @@ export class YourWeatherService {
     const fullUrl = `${this.apiUrl}/wd/day/${date}`;
     return this.http.get<WeatherStation[]>(fullUrl);
   }
-  getWeatherDataForMoth(): Observable<WeatherStation[]> {
-    const fullUrl = `${this.apiUrl}/wd/last-month`;
-    return this.http.get<WeatherStation[]>(fullUrl);
-  }
   getCurrentWeather(): Observable<WeatherStation | null> {
-    // Tutaj użyj HTTP do pobrania najnowszych danych pogodowych z twojego API
-    // Zwróć dane jako Observable
     return this.http.get<WeatherStation>(`${this.apiUrl}/wd/latest-time`);
+  }
+
+  getObservationData(startDate: string, endDate: string): Observable<any[]> {
+    const url = `${this.apiUrl}/wd/dates?startDate=${startDate}&endDate=${endDate}`;
+
+    return this.http.get<any[]>(url);
   }
 }

@@ -1,25 +1,54 @@
-<!-- current-weather.component.html -->
-
 <div *ngIf="currentWeather" class="container">
-  <h2>Aktualna Pogoda</h2>
-  <p>Dzień: {{ currentWeather.date }}</p>
-  <p>Temperatura: {{ convertToCelsius(currentWeather.temperatureOut) | number:'1.0-1' }} °C</p>
-  <p>Najwyższa Temperatura Dnia: {{ convertToCelsius(currentWeather.hiTemperature) | number:'1.0-1' }} °C</p>
-  <p>Najniższa Temperatura Dnia: {{ convertToCelsius(currentWeather.lowTemperature) | number:'1.0-1' }} °C</p>
-  <p>Prędkość Wiatru: {{ currentWeather.windSpeed | number:'1.0-1' }} km/h</p>
-  <p>Kierunek Wiatru: {{ currentWeather.windDirection }}</p>
-  <p>Opady Deszczu: {{ currentWeather.rain | number:'1.0-1' }} mm</p>
-  <p>Wilgotność: {{ currentWeather.outHuminity | number:'1.0-1' }}%</p>
-  <p>Odczucie Temperatury: {{ convertToCelsius(currentWeather.windChill) | number:'1.0-1' }} °C</p>
-  <p>Ciśnienie: {{ currentWeather.bar | number:'1.0-1' }} bar</p>
-  <p>Ostatnie Pobranie Danych: {{ currentWeather.date }} o {{ currentWeather.time }}</p>
 
-  <div>
-    <input type="text" [(ngModel)]="currentDateInput" placeholder="Wprowadź datę (dd.mm.yyyy)">
-    <button (click)="onDateInputChange()">Sprawdź</button>
+  <div *ngIf="!showDetailedData">
+    <h2>Aktualna Pogoda</h2>
+    <button (click)="toggleDetailedData()">Przełącz na szczegółowe dane</button>
+    <p>Dzień: {{ currentWeather.date }}</p>
+    <p>Temperatura: {{ convertToCelsius(currentWeather.temperatureOut) | number:'1.0-1' }} °C</p>
+    <p>Najwyższa Temperatura Dnia: {{ convertToCelsius(currentWeather.hiTemperature) | number:'1.0-1' }} °C</p>
+    <p>Najniższa Temperatura Dnia: {{ convertToCelsius(currentWeather.lowTemperature) | number:'1.0-1' }} °C</p>
+    <p>Prędkość Wiatru: {{ currentWeather.windSpeed | number:'1.0-1' }} km/h</p>
+    <p>Kierunek Wiatru: {{ currentWeather.windDirection }}</p>
+    <p>Opady Deszczu: {{ currentWeather.rain | number:'1.0-1' }} mm</p>
+    <p>Wilgotność: {{ currentWeather.outHuminity | number:'1.0-1' }}%</p>
+    <p>Odczucie Temperatury: {{ convertToCelsius(currentWeather.windChill) | number:'1.0-1' }} °C</p>
+    <p>Ciśnienie: {{ currentWeather.bar | number:'1.0-1' }} bar</p>
+    <p>Ostatnie Pobranie Danych: {{ currentWeather.date }} o {{ currentWeather.time }}</p>
   </div>
 
-  <div>
-    <button (click)="goToTemperatureChart()">Zobacz Wykres Temperatury</button>
+  <div *ngIf="showDetailedData">
+    <h2>Aktualna Pogoda</h2>
+    <button (click)="toggleDetailedData()">Przełącz na szczegółowe dane</button>
+    <p>Dzień: {{ currentWeather.date }}</p>
+    <p>Temperatura: {{ convertToCelsius(currentWeather.temperatureOut) | number:'1.0-1' }} °C</p>
+    <p>Najwyższa Temperatura Dnia: {{ convertToCelsius(currentWeather.hiTemperature) | number:'1.0-1' }} °C</p>
+    <p>Najniższa Temperatura Dnia: {{ convertToCelsius(currentWeather.lowTemperature) | number:'1.0-1' }} °C</p>
+    <p>Prędkość Wiatru: {{ currentWeather.windSpeed | number:'1.0-1' }} km/h</p>
+    <p>Kierunek Wiatru: {{ currentWeather.windDirection }}</p>
+    <p>Opady Deszczu: {{ currentWeather.rain | number:'1.0-1' }} mm</p>
+    <p>Wilgotność: {{ currentWeather.outHuminity | number:'1.0-1' }}%</p>
+    <p>Odczucie Temperatury: {{ convertToCelsius(currentWeather.windChill) | number:'1.0-1' }} °C</p>
+    <p>Ciśnienie: {{ currentWeather.bar | number:'1.0-1' }} bar</p>
+
+    <p>Punkt Rosy: {{ currentWeather.dewPt }}</p>
+    <p>Prędkość Wiatru (Hi): {{ currentWeather.hiSpeed }} km/h</p>
+    <p>Kierunek Wiatru (Hi): {{ currentWeather.hiDirection }}</p>
+    <p>Indeks Ciepła: {{ currentWeather.heatIndex }}</p>
+    <p>Indeks THW: {{ currentWeather.thwIndex }}</p>
+    <p>Opady Deszczu (Rate): {{ currentWeather.rainRate }} mm/h</p>
+    <p>Indeks Ciepła (Heat DD): {{ currentWeather.heatDd }}</p>
+    <p>Indeks Chłodzenia (Cool DD): {{ currentWeather.coolDd }}</p>
+    <p>Temperatura Wewnątrz: {{ currentWeather.temperatureIn }} °C</p>
+    <p>Wilgotność Wewnątrz: {{ currentWeather.inHumidity }}%</p>
+    <p>Punkt Rosy Wewnątrz: {{ currentWeather.inDew }}</p>
+    <p>Ciepło Wewnątrz: {{ currentWeather.inHeat }}</p>
+    <p>EMC Wewnątrz: {{ currentWeather.inEMC }}</p>
+    <p>Gęstość Powietrza Wewnątrz: {{ currentWeather.inAirDensity }}</p>
+    <p>Próbkowanie Wiatru: {{ currentWeather.windSamp }}</p>
+    <p>Transmisja Wiatru: {{ currentWeather.windTx }}</p>
+    <p>Recepcja ISS: {{ currentWeather.ISSRecept }}</p>
+    <p>Integracja ARC: {{ currentWeather.arcInt }}</p>
+
+    <p>Ostatnie Pobranie Danych: {{ currentWeather.date }} o {{ currentWeather.time }}</p>
   </div>
 </div>
