@@ -6,7 +6,7 @@ import { WeatherStation } from './weatherstation';
 @Injectable({
   providedIn: 'root',
 })
-export class YourWeatherService {
+export class WeatherService {
   private apiUrl = 'http://localhost:8081';
 
   constructor(private http: HttpClient) {}

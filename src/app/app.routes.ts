@@ -6,15 +6,17 @@ import { HomeComponent } from "./home/home.component";
 import { AuthGuard } from "./auth.guard";
 import {CurrentWeatherComponent} from "./current-weather/current-weather.component";
 import {TemperatureChartComponent} from "./temperature-chart/temperature-chart.component";
-import {TemperatureChartMonthComponent} from "./temperature-chart-month/temperature-chart-month.component";
+import { ObservationChartComponent} from "./observation-chart/observation-chart.component";
+import { DownloadComponent} from "./download/download.component";
 
 export const routes: Routes = [
   { path: 'current-weather', component: CurrentWeatherComponent, canActivate: [AuthGuard] },
   { path: 'temperature-chart', component: TemperatureChartComponent, canActivate: [AuthGuard] },
-  { path: 'temperature-chart-month', component: TemperatureChartMonthComponent, canActivate: [AuthGuard] },
   { path: '', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'observation-chart', component: ObservationChartComponent, canActivate: [AuthGuard]  },
+  { path: 'download', component: DownloadComponent, canActivate: [AuthGuard]  },
 ];
 
 @NgModule({

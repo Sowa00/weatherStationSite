@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 
@@ -16,51 +16,54 @@ export class RegisterComponent {
     this.registrationForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      password2: ['', [Validators.required, Validators.minLength(6)]],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
+    }, {
+      validators: this.passwordMatchValidator
     });
   }
 
   onSubmit() {
     if (this.registrationForm.valid) {
-      const formData = this.registrationForm.value;
+      const emailControl = this.registrationForm.get('email');
+      const passwordControl = this.registrationForm.get('password');
+      const password2Control = this.registrationForm.get('password2');
 
-      // Wywołanie metody registerUser z UserService
-      this.userService.registerUser(formData).subscribe(
-        (response) => {
-          if (response.status === 200) {
-            // Odpowiedź z kodem 200 oznacza sukces
-            console.log('Registration successful!', response);
-          } else {
-            console.log('Unexpected response status:', response.status);
-          }
+      if (emailControl && passwordControl && password2Control) {
+        const formData = this.registrationForm.value;
 
-          // Dodaj kod obsługujący sukces rejestracji, np. przekierowanie na inną stronę
-          // Możesz użyć routera Angular, aby przekierować użytkownika po udanej rejestracji
-          // Przykładowo:
-          this.router.navigate(['/login']);
-        },
-        (error) => {
-          console.error('Registration failed!', error);
+        this.userService.registerUser(formData).subscribe(
+          (response) => {
+            if (response.status === 200) {
+              console.log('Registration successful!', response);
+              this.router.navigate(['/login']);
+            } else {
+              console.log('Unexpected response status:', response.status);
+            }
+          },
+          (error) => {
+            console.error('Błąd rejestracji!', error);
 
-          // Sprawdź, czy status odpowiedzi to 409 (Conflict)
-          if (error.status === 200) {
-            // Adres e-mail jest już w użyciu
-            console.log('Registration successful!', error);
-            this.errorMessage = 'Registration successful!';
-            this.router.navigate(['/login']);
+            if (error.status === 409) {
+              this.errorMessage = 'Adres e-mail w użyciu, prosze użyć innego.';
+            } else {
+              this.errorMessage = 'Błąd rejestracji. Spróbuj ponownie.';
+            }
           }
-          else if (error.status === 409) {
-            // Adres e-mail jest już w użyciu
-            console.log('Email address is already in use.');
-            this.errorMessage = 'Email address is already in use.';
-          } else {
-            // Obsługa innych błędów
-            console.log('Other registration error.');
-            // Dodaj kod obsługujący inne błędy, jeśli są
-          }
-        }
-      );
+        );
+      }
     }
+  }
+
+  private passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const password = control.get('password');
+    const password2 = control.get('password2');
+
+    if (password && password2 && password.value === password2.value) {
+      return null;
+    }
+
+    return { 'passwordMismatch': true };
   }
 }

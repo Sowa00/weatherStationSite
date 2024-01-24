@@ -1,0 +1,28 @@
+<!-- data-download.component.html -->
+
+<form [formGroup]="downloadForm">
+  <label>Data pojedyncza:</label>
+  <input type="date" formControlName="singleDate">
+  <br>
+  <label>Data początkowa:</label>
+  <input type="date" formControlName="startDate">
+  <br>
+  <label>Data końcowa:</label>
+  <input type="date" formControlName="endDate">
+  <br>
+  <label>Format pliku:</label>
+  <select formControlName="fileType">
+    <option value="text">Plik tekstowy</option>
+    <option value="csv">CSV</option>
+    <option value="xlsx">XLSX</option>
+  </select>
+
+  <button type="button" (click)="downloadData()">Pobierz dane</button>
+
+  <!-- Wyświetlanie danych -->
+  <div *ngFor="let row of generatedData | keyvalue">
+    <div *ngFor="let cell of row.value">
+      {{ cell }}
+    </div>
+  </div>
+</form>

@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartOptions, ChartDataset } from 'chart.js';
-import { YourWeatherService } from '../your-weather.service';
+import { WeatherService } from '../weather.service';
 import { WeatherStation } from '../weatherstation';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { DateService } from "../date.service";
 
 @Component({
   selector: 'app-temperature-chart',
   templateUrl: './temperature-chart.component.html',
-  styleUrls: ['./temperature-chart.component.css']
+  styleUrls: ['./temperature-chart.component.css'],
 })
 export class TemperatureChartComponent implements OnInit {
-  public lineChartData: ChartDataset[] = [{ data: [], label: 'TemperatureOut' }];
+  public lineChartData: ChartDataset[] = [];
   public lineChartLabels: string[] = [];
   public lineChartOptions: ChartOptions = {
     responsive: true,
@@ -17,21 +19,51 @@ export class TemperatureChartComponent implements OnInit {
   public lineChartLegend = true;
   public lineChartPlugins = [];
 
-  constructor(private weatherService: YourWeatherService) {}
+  public weatherDataForm: FormGroup;
+  public availableData: string[] = ['Temperatura', 'Wilgotność', 'Prędkość wiatru', 'Ciśnienie', 'Opady deszczu'];
+  public currentDate: string = '';
+
+  // Mapowanie polskich nazw na angielskie
+  private dataMapping: { [key: string]: string } = {
+    'Temperatura': 'temperatureOut',
+    'Wilgotność': 'outHumidity',
+    'Prędkość wiatru': 'windSpeed',
+    'Ciśnienie': 'bar',
+    'Opady deszczu': 'rain'
+  };
+
+  constructor(private weatherService: WeatherService, private formBuilder: FormBuilder, private dateService: DateService) {
+    this.weatherDataForm = this.formBuilder.group({
+      selectedData: [''],
+      selectedDate: [''] // Dodane pole dla wyboru daty
+    });
+  }
 
   ngOnInit(): void {
-    this.weatherService.getWeatherDataForDay('01.11.2023').subscribe((data: WeatherStation[]) => {
+    this.loadWeatherData();
+    this.currentDate = this.dateService.getCurrentDate();
+  }
+
+  loadWeatherData(): void {
+    const selectedData = this.weatherDataForm.value.selectedData;
+    const selectedDate = this.weatherDataForm.value.selectedDate; // Dodane pobieranie daty
+
+    const englishData = this.dataMapping[selectedData];
+
+    this.weatherService.getWeatherDataForDay(selectedDate).subscribe((data: WeatherStation[]) => {
+      this.lineChartData = [{ data: [], label: selectedData }];
+      this.lineChartLabels = [];
       data.forEach((item: WeatherStation) => {
-        // Konwersja temperatury z Fahrenheitów na stopnie Celsiusza
-        const temperatureCelsius = ((item.temperatureOut - 32) * 5) / 9;
-
-        // Dodanie skonwertowanej temperatury do danych na wykresie
-        this.lineChartData[0].data.push(temperatureCelsius);
+        const dataValue = (item as any)[englishData];
+        this.lineChartData[0].data.push(dataValue);
         this.lineChartLabels.push(item.time);
-
-        // Dodanie console logów do śledzenia danych
-        console.log(`Czas: ${item.time}, Temperatura (F): ${item.temperatureOut}, Temperatura (C): ${temperatureCelsius}`);
       });
     });
+  }
+
+  // Funkcja obsługująca zmianę wybranych danych
+  selectData(selectedData: string): void {
+    this.weatherDataForm.patchValue({ selectedData });
+    this.loadWeatherData();
   }
 }

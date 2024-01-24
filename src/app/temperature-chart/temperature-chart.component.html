@@ -1,8 +1,29 @@
 <div>
+  <form [formGroup]="weatherDataForm" (ngSubmit)="loadWeatherData()">
+    <label for="selectedDate">Data:</label>
+    <input type="date" id="selectedDate" formControlName="selectedDate" placeholder="dd.mm.yyyy">
+    <br>
+    <label>Wybierz dane:</label>
+    <div>
+      <button *ngFor="let data of availableData" (click)="selectData(data)" [class.selected]="data === currentDate">{{ data }}</button>
+    </div>
+  </form>
+
+
+
+
   <style>
     div canvas {
       width: 800px;
       height: 400px;
+    }
+
+    div button {
+      margin-right: 10px;
+    }
+
+    div .selected {
+      font-weight: bold;
     }
   </style>
   <canvas

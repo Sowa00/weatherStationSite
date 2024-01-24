@@ -7,24 +7,33 @@ import { AppComponent } from './app.component'
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TemperatureChartComponent } from './temperature-chart/temperature-chart.component';
-import { TemperatureChartMonthComponent } from './temperature-chart-month/temperature-chart-month.component';
-import { YourWeatherService } from './your-weather.service';
+
+import { WeatherService } from './weather.service';
 import { CurrentWeatherComponent } from './current-weather/current-weather.component';
 import { routes } from './app.routes';
 import { RouterModule } from "@angular/router";
 import { RegisterComponent} from "./register/register.component";
 import { LoginComponent} from "./login/login.component";
 import { HomeComponent} from "./home/home.component";
+import { ObservationChartComponent} from "./observation-chart/observation-chart.component";
+import { DateService } from "./date.service";
+import { DateRangeService} from "./date-range.service";
+import { SidebarComponent} from "./sidebar/sidebar.component";
+import { DatePipe} from "@angular/common";
+import {DownloadComponent} from "./download/download.component";
+
 
 @NgModule({
   declarations: [
     AppComponent,
     TemperatureChartComponent,
-    TemperatureChartMonthComponent,
     CurrentWeatherComponent,
     RegisterComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    ObservationChartComponent,
+    SidebarComponent,
+    DownloadComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +44,7 @@ import { HomeComponent} from "./home/home.component";
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [YourWeatherService],
+  providers: [WeatherService, DateService, DateRangeService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

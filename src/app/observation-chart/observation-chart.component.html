@@ -1,0 +1,23 @@
+<form [formGroup]="dateRangeForm" (ngSubmit)="loadObservationData()">
+  <label for="startDate">Data początkowa:</label>
+  <input type="date" id="startDate" formControlName="startDate" placeholder="dd.mm.yyyy">
+  <br>
+  <label for="endDate">Data końcowa:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+  <input type="date" id="endDate" formControlName="endDate" placeholder="dd.mm.yyyy">
+  <br>
+  <label for="dataType">Wybierz typ danych:</label>
+  <select id="dataType" formControlName="selectedData">
+    <option *ngFor="let data of availableData" [value]="data">{{ data }}</option>
+  </select>
+
+  <button type="submit">Pobierz dane</button>
+
+  <canvas
+    baseChart
+    [datasets]="lineChartData"
+    [labels]="lineChartLabels"
+    [options]="lineChartOptions"
+    [legend]="lineChartLegend"
+    [plugins]="lineChartPlugins"
+  ></canvas>
+</form>
