@@ -3,7 +3,7 @@ module.exports = function(config) {
     frameworks: ['jasmine'],  // Używamy Jasmine jako frameworku do testów
     browsers: ['Chrome'],    // Uruchamiamy testy w przeglądarce Chrome, możesz dostosować do innych przeglądarek
     files: [
-      'src/**/*.spec.ts'      // Ścieżki do plików specjalnych testów
+      "src/app/current-weather/current-weather.component.ts",     // Ścieżki do plików specjalnych testów
     ],
     preprocessors: {
       'src/**/*.spec.ts': ['webpack', 'sourcemap']  // Preprocesujemy pliki specjalne testów za pomocą webpack i sourcemap

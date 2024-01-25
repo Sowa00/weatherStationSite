@@ -2,13 +2,14 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
-
+import { TestBed } from '@angular/core/testing';
 import { CurrentWeatherComponent } from './current-weather.component';
 import { WeatherService } from '../weather.service';
 import { AuthService } from '../auth.service';
 import { DateService } from '../date.service';
 import { WeatherStation } from '../weatherstation';
 import { User } from '../user';
+
 
 describe('CurrentWeatherComponent', () => {
   let component: CurrentWeatherComponent;
