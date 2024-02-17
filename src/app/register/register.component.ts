@@ -36,16 +36,18 @@ export class RegisterComponent {
         this.userService.registerUser(formData).subscribe(
           (response) => {
             if (response.status === 200) {
-              console.log('Registration successful!', response);
+              console.log('Zarejestrowano pomyślnie!', response);
               this.router.navigate(['/login']);
             } else {
-              console.log('Unexpected response status:', response.status);
+              console.log('Niespodziewany błąd rejestracji:', response.status);
             }
           },
           (error) => {
             console.error('Błąd rejestracji!', error);
+            if (error.status === 200) {
+              this.errorMessage = 'Zarejestrowanie pomyślnie!';
 
-            if (error.status === 409) {
+            } else if (error.status === 409) {
               this.errorMessage = 'Adres e-mail w użyciu, prosze użyć innego.';
             } else {
               this.errorMessage = 'Błąd rejestracji. Spróbuj ponownie.';
@@ -63,7 +65,6 @@ export class RegisterComponent {
     if (password && password2 && password.value === password2.value) {
       return null;
     }
-
     return { 'passwordMismatch': true };
   }
 }

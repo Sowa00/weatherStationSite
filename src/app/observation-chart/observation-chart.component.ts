@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DateRangeService } from '../date-range.service';
 import { WeatherService } from '../weather.service';
-import Chart from 'chart.js/auto';
 import {ChartDataset, ChartOptions} from "chart.js";
 import {WeatherStation} from "../weatherstation";
 
@@ -13,8 +12,6 @@ import {WeatherStation} from "../weatherstation";
 })
 export class ObservationChartComponent implements OnInit {
   public dateRangeForm: FormGroup;
-  public observationData: any[] = [];
-  private chart: any;
   public lineChartData: ChartDataset[] = [];
   public lineChartLabels: string[] = [];
   public lineChartOptions: ChartOptions = {
@@ -37,8 +34,8 @@ export class ObservationChartComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private yourWeatherService: WeatherService,
-    private dateRangeService: DateRangeService
+    private weatherService: WeatherService,
+    private dateRangeService: DateRangeService,
   ) {
     this.dateRangeForm = this.formBuilder.group({
       startDate: [''],
@@ -70,14 +67,14 @@ export class ObservationChartComponent implements OnInit {
         console.error('Data początkowa nie może być większa niż data końcowa.');
         return;
       }
-      this.yourWeatherService.getObservationData(startDate, endDate).subscribe((data: WeatherStation[]) => {
+      this.weatherService.getObservationData(startDate, endDate).subscribe((data: WeatherStation[]) => {
         console.log(data);
         this.lineChartData = [{ data: [], label: selectedData }];
         this.lineChartLabels = [];
         data.forEach((item: WeatherStation) => {
           const dataValue = (item as any)[englishData];
-          this.lineChartData[0].data.push(dataValue);
-          this.lineChartLabels.push(item.time);
+          this.lineChartData[0].data.push(this.weatherService.convertToCelsius(dataValue));
+          this.lineChartLabels.push(`${item.date} ${item.time}`);
         });
       }, (error) => {
         console.error('Błąd podczas pobierania danych:', error);

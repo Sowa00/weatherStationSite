@@ -1,46 +1,45 @@
-/* current-weather.component.css */
 
 :host {
   display: block;
-  max-width: 600px; /* Maksymalna szerokość komponentu */
-  margin: 0 auto; /* Wyśrodkowanie komponentu na stronie */
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .container {
-  border: 2px solid #080e41; /* Prostokątna obwódka z zaokrąglonymi kątami */
-  border-radius: 8px; /* Promień zaokrąglenia kątów */
-  padding: 20px; /* Wewnętrzny odstęp dla całego bloku */
-  font-family: 'Roboto', sans-serif; /* Wybierz dowolną czcionkę */
+  border: 2px solid #080e41;
+  border-radius: 8px;
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
 }
 
 h2 {
-  color: #080e41; /* Zielony kolor nagłówka */
+  color: #080e41;
 }
 
 p {
-  margin: 0.5em 0; /* Marginesy dla paragrafów */
-  color: #000; /* Czarny kolor tekstu */
-  font-size: 16px; /* Rozmiar tekstu */
-  line-height: 1.5; /* Wysokość linii */
+  margin: 0.5em 0;
+  color: #000;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 div {
-  margin-top: 20px; /* Dodatkowy margines na górę dla divów wewnątrz komponentu */
+  margin-top: 20px;
 }
 
 input {
   padding: 5px;
-  margin-right: 10px; /* Margines z prawej strony dla inputa */
+  margin-right: 10px;
 }
 
 button {
   padding: 8px 12px;
-  background-color: #d32f2f; /* Czerwone tło przycisku */
-  color: #fff; /* Biały kolor tekstu na przycisku */
+  background-color: #d32f2f;
+  color: #fff;
   cursor: pointer;
   border: none;
 }
 
 button:hover {
-  background-color: #b71c1c; /* Ciemniejsze czerwone tło przycisku po najechaniu myszką */
+  background-color: #b71c1c;
 }

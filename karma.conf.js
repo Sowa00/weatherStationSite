@@ -1,19 +1,30 @@
 module.exports = function(config) {
   config.set({
-    frameworks: ['jasmine'],  // Używamy Jasmine jako frameworku do testów
-    browsers: ['Chrome'],    // Uruchamiamy testy w przeglądarce Chrome, możesz dostosować do innych przeglądarek
-    files: [
-      "src/app/current-weather/current-weather.component.ts",     // Ścieżki do plików specjalnych testów
+    basePath: '',
+    frameworks: ['jasmine', '@angular-devkit/build-angular'],
+    plugins: [
+      require('karma-jasmine'),
+      require('karma-chrome-launcher'),
+      require('@angular-devkit/build-angular/plugins/karma')
     ],
-    preprocessors: {
-      'src/**/*.spec.ts': ['webpack', 'sourcemap']  // Preprocesujemy pliki specjalne testów za pomocą webpack i sourcemap
+    client: {
+      clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
-    reporters: ['progress', 'kjhtml'],  // Raporty, które chcemy wyświetlić
-    port: 9876,               // Port, na którym ma działać Karma
-    colors: true,             // Kolorowanie wyników w terminalu
+    coverageReporter: {
+      dir: require('path').join(__dirname, './coverage/weather-station-site'),
+      subdir: '.',
+      reporters: [
+        { type: 'html' },
+        { type: 'text-summary' }
+      ]
+    },
+    reporters: ['progress', 'kjhtml'],
+    port: 9876,
+    colors: true,
     logLevel: config.LOG_INFO,
-    autoWatch: true,          // Automatyczne uruchamianie testów po zmianie plików źródłowych
-    singleRun: false,         // Czy Karma ma uruchamiać testy tylko raz i zakończyć, czy ciągle nasłuchiwać na zmiany
-    restartOnFileChange: true, // Restartuj Karma po zmianie plików konfiguracyjnych
+    autoWatch: true,
+    browsers: ['Chrome'],
+    singleRun: false,
+    restartOnFileChange: true
   });
 };

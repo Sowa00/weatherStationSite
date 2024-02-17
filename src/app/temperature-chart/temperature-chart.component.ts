@@ -23,7 +23,6 @@ export class TemperatureChartComponent implements OnInit {
   public availableData: string[] = ['Temperatura', 'Wilgotność', 'Prędkość wiatru', 'Ciśnienie', 'Opady deszczu'];
   public currentDate: string = '';
 
-  // Mapowanie polskich nazw na angielskie
   private dataMapping: { [key: string]: string } = {
     'Temperatura': 'temperatureOut',
     'Wilgotność': 'outHumidity',
@@ -35,7 +34,7 @@ export class TemperatureChartComponent implements OnInit {
   constructor(private weatherService: WeatherService, private formBuilder: FormBuilder, private dateService: DateService) {
     this.weatherDataForm = this.formBuilder.group({
       selectedData: [''],
-      selectedDate: [''] // Dodane pole dla wyboru daty
+      selectedDate: ['']
     });
   }
 
@@ -46,7 +45,7 @@ export class TemperatureChartComponent implements OnInit {
 
   loadWeatherData(): void {
     const selectedData = this.weatherDataForm.value.selectedData;
-    const selectedDate = this.weatherDataForm.value.selectedDate; // Dodane pobieranie daty
+    const selectedDate = this.weatherDataForm.value.selectedDate;
 
     const englishData = this.dataMapping[selectedData];
 
@@ -55,13 +54,12 @@ export class TemperatureChartComponent implements OnInit {
       this.lineChartLabels = [];
       data.forEach((item: WeatherStation) => {
         const dataValue = (item as any)[englishData];
-        this.lineChartData[0].data.push(dataValue);
+        this.lineChartData[0].data.push(this.weatherService.convertToCelsius(dataValue));
         this.lineChartLabels.push(item.time);
       });
     });
   }
 
-  // Funkcja obsługująca zmianę wybranych danych
   selectData(selectedData: string): void {
     this.weatherDataForm.patchValue({ selectedData });
     this.loadWeatherData();

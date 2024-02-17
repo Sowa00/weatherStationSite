@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import moment from 'moment';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { Papa } from 'ngx-papaparse';
@@ -29,26 +28,30 @@ export class DownloadComponent {
 
     if (this.downloadForm.value.singleDate) {
       const singleDate = this.downloadForm.value.singleDate;
-      const formattedDate = moment(singleDate).format('DD.MM.YYYY');
 
-      this.yourWeatherService.getWeatherDataForDay(formattedDate).subscribe(data => {
+      this.yourWeatherService.getWeatherDataForDay(singleDate).subscribe(data => {
         this.generatedData = this.transformData(data, ['id', 'idByDateTime']);
+        console.log(this.generatedData);
         this.downloadFile(fileType);
       });
     } else if (this.downloadForm.value.startDate && this.downloadForm.value.endDate) {
       const startDate = this.downloadForm.value.startDate;
       const endDate = this.downloadForm.value.endDate;
-      const formattedStartDate = moment(startDate).format('DD.MM.YYYY');
-      const formattedEndDate = moment(endDate).format('DD.MM.YYYY');
 
-      this.yourWeatherService.getObservationData(formattedStartDate, formattedEndDate).subscribe(data => {
+      this.yourWeatherService.getObservationData(startDate, endDate).subscribe(data => {
         this.generatedData = this.transformData(data, ['id', 'idByDateTime']);
+        console.log(this.generatedData);
         this.downloadFile(fileType);
       });
     }
   }
 
   transformData(data: any[], excludeFields: string[]): any[] {
+    if (!Array.isArray(data)) {
+      console.error('Data is not an array:', data);
+      return [];
+    }
+
     const transformedData = data.map(item => {
       const newItem: any = { ...item };
       excludeFields.forEach(field => {
@@ -59,30 +62,21 @@ export class DownloadComponent {
       });
       return newItem;
     });
-
     return transformedData;
   }
-
-
 
   private downloadFile(fileType: string): void {
     if (fileType === 'text') {
       const blob = new Blob([JSON.stringify(this.generatedData)], { type: 'text/plain;charset=utf-8' });
       saveAs(blob, 'data.txt');
     } else if (fileType === 'csv') {
-      // Konwersja danych do CSV
       const dataArray = Object.values(this.generatedData);
       const csvData = this.papa.unparse(dataArray as { [k: string]: string | number }[]);
       const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8' });
       saveAs(blob, 'data.csv');
     } else if (fileType === 'xlsx') {
-      // Sprawdzamy, czy this.generatedData jest dwuwymiarową tablicą
-      // Sprawdzamy, czy this.generatedData jest dwuwymiarową tablicą
       if (Array.isArray(this.generatedData) && this.generatedData.length > 0) {
-        // Extract keys from the first object to create the header row
         const keys = Object.keys(this.generatedData[0]);
-
-        // Create a two-dimensional array with keys as the first row
         const dataArray: any[][] = [keys, ...this.generatedData.map(obj => keys.map(key => obj[key]))];
 
         const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(dataArray);
@@ -92,18 +86,6 @@ export class DownloadComponent {
       } else {
         console.error('Błąd: Oczekiwano obiektu danych dla formatu XLSX');
       }
-
-
     }
-  }
-
-
-
-
-
-
-  private getFileName(data: any, extension: string): string {
-    // Implementuj logikę tworzenia nazwy pliku na podstawie danych
-    return 'data.' + extension;
   }
 }

@@ -4,14 +4,14 @@
     <h2>Aktualna Pogoda</h2>
     <button (click)="toggleDetailedData()">Przełącz na szczegółowe dane</button>
     <p>Dzień: {{ currentWeather.date }}</p>
-    <p>Temperatura: {{ convertToCelsius(currentWeather.temperatureOut) | number:'1.0-1' }} °C</p>
-    <p>Najwyższa Temperatura Dnia: {{ convertToCelsius(currentWeather.hiTemperature) | number:'1.0-1' }} °C</p>
-    <p>Najniższa Temperatura Dnia: {{ convertToCelsius(currentWeather.lowTemperature) | number:'1.0-1' }} °C</p>
+    <p>Temperatura: {{ weatherService.convertToCelsius(currentWeather.temperatureOut) | number:'1.0-1' }} °C</p>
+    <p>Najwyższa Temperatura Dnia: {{ weatherService.convertToCelsius(currentWeather.hiTemperature) | number:'1.0-1' }} °C</p>
+    <p>Najniższa Temperatura Dnia: {{ weatherService.convertToCelsius(currentWeather.lowTemperature) | number:'1.0-1' }} °C</p>
     <p>Prędkość Wiatru: {{ currentWeather.windSpeed | number:'1.0-1' }} km/h</p>
     <p>Kierunek Wiatru: {{ currentWeather.windDirection }}</p>
     <p>Opady Deszczu: {{ currentWeather.rain | number:'1.0-1' }} mm</p>
     <p>Wilgotność: {{ currentWeather.outHuminity | number:'1.0-1' }}%</p>
-    <p>Odczucie Temperatury: {{ convertToCelsius(currentWeather.windChill) | number:'1.0-1' }} °C</p>
+    <p>Odczucie Temperatury: {{ weatherService.convertToCelsius(currentWeather.windChill) | number:'1.0-1' }} °C</p>
     <p>Ciśnienie: {{ currentWeather.bar | number:'1.0-1' }} bar</p>
     <p>Ostatnie Pobranie Danych: {{ currentWeather.date }} o {{ currentWeather.time }}</p>
   </div>
@@ -20,14 +20,14 @@
     <h2>Aktualna Pogoda</h2>
     <button (click)="toggleDetailedData()">Przełącz na szczegółowe dane</button>
     <p>Dzień: {{ currentWeather.date }}</p>
-    <p>Temperatura: {{ convertToCelsius(currentWeather.temperatureOut) | number:'1.0-1' }} °C</p>
-    <p>Najwyższa Temperatura Dnia: {{ convertToCelsius(currentWeather.hiTemperature) | number:'1.0-1' }} °C</p>
-    <p>Najniższa Temperatura Dnia: {{ convertToCelsius(currentWeather.lowTemperature) | number:'1.0-1' }} °C</p>
+    <p>Temperatura: {{ weatherService.convertToCelsius(currentWeather.temperatureOut) | number:'1.0-1' }} °C</p>
+    <p>Najwyższa Temperatura Dnia: {{ weatherService.convertToCelsius(currentWeather.hiTemperature) | number:'1.0-1' }} °C</p>
+    <p>Najniższa Temperatura Dnia: {{ weatherService.convertToCelsius(currentWeather.lowTemperature) | number:'1.0-1' }} °C</p>
     <p>Prędkość Wiatru: {{ currentWeather.windSpeed | number:'1.0-1' }} km/h</p>
     <p>Kierunek Wiatru: {{ currentWeather.windDirection }}</p>
     <p>Opady Deszczu: {{ currentWeather.rain | number:'1.0-1' }} mm</p>
     <p>Wilgotność: {{ currentWeather.outHuminity | number:'1.0-1' }}%</p>
-    <p>Odczucie Temperatury: {{ convertToCelsius(currentWeather.windChill) | number:'1.0-1' }} °C</p>
+    <p>Odczucie Temperatury: {{ weatherService.convertToCelsius(currentWeather.windChill) | number:'1.0-1' }} °C</p>
     <p>Ciśnienie: {{ currentWeather.bar | number:'1.0-1' }} bar</p>
 
     <p>Punkt Rosy: {{ currentWeather.dewPt }}</p>

@@ -1,5 +1,3 @@
-<!-- data-download.component.html -->
-
 <form [formGroup]="downloadForm">
   <label>Data pojedyncza:</label>
   <input type="date" formControlName="singleDate">
@@ -19,7 +17,6 @@
 
   <button type="button" (click)="downloadData()">Pobierz dane</button>
 
-  <!-- Wyświetlanie danych -->
   <div *ngFor="let row of generatedData | keyvalue">
     <div *ngFor="let cell of row.value">
       {{ cell }}
