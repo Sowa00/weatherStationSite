@@ -46,7 +46,7 @@ export class RegisterComponent {
             console.error('Błąd rejestracji!', error);
             if (error.status === 200) {
               this.errorMessage = 'Zarejestrowanie pomyślnie!';
-
+              this.router.navigate(['/login']);
             } else if (error.status === 409) {
               this.errorMessage = 'Adres e-mail w użyciu, prosze użyć innego.';
             } else {

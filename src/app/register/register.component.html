@@ -23,7 +23,7 @@
   <label for="lastName">Nazwisko:</label>
   <input type="text" id="lastName" formControlName="lastName" required>
 
-  <button type="submit" [disabled]="!registrationForm.valid">Register</button>
+  <button type="submit" [disabled]="!registrationForm.valid">Zarejestruj</button>
   <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}
   </div>

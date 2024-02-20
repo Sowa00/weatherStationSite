@@ -28,22 +28,14 @@ export class LoginComponent {
 
       this.userService.loginUser(formData).subscribe(
         (response) => {
-          console.log('Login response:', response);
-
-          console.log('Before navigate');
           this.authService.setAuthenticated(true);
           this.router.navigate(['/', 'current-weather']);
-          console.log('After navigate');
         },
         (error) => {
           console.error('Login error:', error);
-
           if (error.status === 401) {
-            console.log('Invalid login credentials.');
             this.errorMessage = 'Invalid login credentials.';
           } else {
-
-            console.error('Other login error.');
             this.errorMessage = 'Nieprawidłowe dane.';
           }
         }

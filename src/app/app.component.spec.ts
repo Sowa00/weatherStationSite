@@ -6,7 +6,7 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
-        AppComponent // Dodajemy deklarację komponentu
+        AppComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
