@@ -54,7 +54,7 @@ export class TemperatureChartComponent implements OnInit {
       this.lineChartLabels = [];
       data.forEach((item: WeatherStation) => {
         const dataValue = (item as any)[englishData];
-        this.lineChartData[0].data.push(this.weatherService.convertToCelsius(dataValue));
+        this.lineChartData[0].data.push(dataValue);
         this.lineChartLabels.push(item.time);
       });
     });
