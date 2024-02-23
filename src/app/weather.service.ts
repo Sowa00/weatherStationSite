@@ -3,13 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { WeatherStation } from './weatherstation';
 import { DatePipe } from '@angular/common';
+import { environment } from "../environments/environment";
 
 @Injectable({
   providedIn: 'root',
 })
 export class WeatherService {
-  private apiUrl = 'http://localhost:8081';
-
+  private apiUrl = environment.apiBaseUrl;
   constructor(private http: HttpClient, private datePipe: DatePipe) {}
 
   getWeatherDataForDay(date: string): Observable<WeatherStation[]> {

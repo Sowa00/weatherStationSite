@@ -4,6 +4,6 @@
     <li><a routerLink="/observation-chart">Wyświetl wykresy z danego zakresu dat</a></li>
     <li><a routerLink="/temperature-chart">Wyświetl wykresy w danym dniu</a></li>
     <li><a routerLink="/download">Pobierz dane pogodowe</a></li>
-    <li><a (click)="logout()">Wyloguj się</a></li>
+    <li *ngIf="isAuthenticated"><a (click)="logout()">Wyloguj się</a></li>
   </ul>
 </div>
