@@ -22,7 +22,7 @@ export class ObservationChartComponent implements OnInit {
 
   private dataMapping: { [key: string]: string } = {
     'Temperatura': 'temperatureOut',
-    'Wilgotność': 'outHumidity',
+    'Wilgotność': 'outHuminity',
     'Prędkość wiatru': 'windSpeed',
     'Ciśnienie': 'bar',
     'Opady deszczu': 'rain'
